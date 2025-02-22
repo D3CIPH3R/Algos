@@ -41,7 +41,7 @@ void inorderTraversal(TreeNode* root){
     inorderTraversal(root -> left);
     cout << root -> val;
     inorderTraversal(root -> right);
-}
+}   
 
 void BFS(TreeNode* root){
     queue<TreeNode*>queue;
@@ -63,5 +63,5 @@ int main(){
     TreeNode* root = initializeTree();
     inorderTraversal(root);
     cout << "\n";
-    BFS(root);
+    // BFS(root);
 }

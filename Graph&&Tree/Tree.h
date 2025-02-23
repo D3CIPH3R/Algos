@@ -19,36 +19,47 @@ class TreeNode{
         }   
 };
 
-TreeNode* initializeTree(){
-    TreeNode* root = new TreeNode(1);
-    TreeNode* node1 = new TreeNode(2);
-    TreeNode* node2 = new TreeNode(3);
-    TreeNode* node3 = new TreeNode(4);
-    TreeNode* node4 = new TreeNode(5);
-    TreeNode* node5 = new TreeNode(7);
-    root -> left = node1;
-    root -> right = node2;
-    root -> left -> left = node3;
-    root -> left -> right = node4;
-    root -> right -> right = node5;
+TreeNode* initializeBST(vector<int> &v){
+    TreeNode* root = new TreeNode(v[0]);
+    
+    for(int i=1;i<v.size();i++){
+        TreeNode* tmp = root;
+        while(v[i] < tmp -> val){
+            if(tmp -> left == NULL){
+                tmp -> left = new TreeNode(v[i]);
+                break;
+            }
+            tmp = tmp -> left;
+        }
+
+        while(v[i] > tmp -> val){
+            if(tmp -> right == NULL){
+                tmp -> right = new TreeNode(v[i]);
+                break;
+            }
+            tmp = tmp -> right;
+        }
+    }
     return root;
 }
 
+// inorder/postorder/preorder/DFS
 void inorderTraversal(TreeNode* root){
     if(root == nullptr){
         return;
     }
     inorderTraversal(root -> left);
-    cout << root -> val;
+    cout << root -> val << " ";
     inorderTraversal(root -> right);
 }   
 
+// BFS
 void BFS(TreeNode* root){
     queue<TreeNode*>queue;
     queue.push(root);
     while(!queue.empty()){
         TreeNode* node = queue.front();
-        cout << node -> val;
+        cout << node -> val << " ";
         if(node -> left != NULL){
             queue.push(node -> left);
         }
@@ -57,11 +68,4 @@ void BFS(TreeNode* root){
         }
         queue.pop();
     }
-}
-
-int main(){
-    TreeNode* root = initializeTree();
-    inorderTraversal(root);
-    cout << "\n";
-    // BFS(root);
 }
